@@ -1,0 +1,48 @@
+<template>
+            <lightning-card title="Fulfillment Lines">
+              <lightning-tabset variant="default" active-tab-value={defaultTab}>
+                <div class="slds-p-left_small">
+                    <template if:true={tabs}>
+                        <template for:each={tabs} for:item="tab">
+                            <lightning-tab label={tab.label} value={tab.key} key={tab.key} onactive={handleTabOnActive}>
+                              <div class="slds-form-element select-width slds-p-left_medium">
+                                <label class="slds-form-element__label" for="select-01">Mass Update Field</label>
+                                
+                                  <div class="slds-select_container">
+                                    <select class="slds-select userSelection" onchange={handleMassUpdateFieldSelection}>
+                                      <template for:each={massUpdateFields} for:item="massUpdateField">
+                                        <option key={massUpdateField.key} value={massUpdateField.key}>{massUpdateField.label}</option>
+                                      </template>
+                                    </select>
+                                  </div>
+                                
+                              </div>
+                              <br>
+                              <template if:true={data}>
+                                <div class="slds-scrollable--x">
+                                    <lightning-datatable
+                                        columns={columns}
+                                        data={data}
+                                        key-field="Id"
+                                        max-row-selection=1
+                                        onrowselection={handleSelectedFulfillmentLine}
+                                        oncellchange={handlecellchange}
+                                        onsave={handleSave}>
+                                    </lightning-datatable>
+                                    <template if:true={displayCustomDockFooter}>
+                                      <div class="slds-docked-form-footer slds-is-relative">
+                                          <div class="slds-grid slds-grid_align-center">
+                                              <button type="button" class="slds-button slds-button_neutral" onclick={handleCustomCancelbtn}>Cancel</button>
+                                              <button type="button" class="slds-button slds-button_brand" onclick={handleCustomSavebtn}>Save</button>
+                                          </div> 
+                                      </div>
+                                     </template>
+                                </div>
+                              </template>
+                            </lightning-tab>
+                        </template>
+                    </template>
+                </div>
+            </lightning-tabset> 
+            </lightning-card> 
+</template>
